@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bem-vindos ao NoCode</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #0f0f1a;
+      color: #e2e8f0;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Fundo animado */
+    .bg-animation {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      background: radial-gradient(ellipse at 20% 50%, #1a1a3e 0%, transparent 50%),
+                  radial-gradient(ellipse at 80% 20%, #0d2a1a 0%, transparent 50%),
+                  radial-gradient(ellipse at 60% 80%, #1a0d2e 0%, transparent 50%);
+    }
+
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      animation: float linear infinite;
+      opacity: 0.15;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+      10% { opacity: 0.15; }
+      90% { opacity: 0.15; }
+      100% { transform: translateY(-100px) rotate(720deg); opacity: 0; }
+    }
+
+    /* Container principal */
+    .wrapper {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Header / Hero */
+    header {
+      text-align: center;
+      padding: 80px 20px 60px;
+    }
+
+    .badge {
+      display: inline-block;
+      background: linear-gradient(135deg, #00c896, #00a3ff);
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 6px 18px;
+      border-radius: 50px;
+      margin-bottom: 28px;
+    }
+
+    h1 {
+      font-size: clamp(2.2rem, 6vw, 4rem);
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 20px;
+    }
+
+    h1 .highlight {
+      background: linear-gradient(135deg, #00c896, #00a3ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .subtitle {
+      font-size: clamp(1rem, 2.5vw, 1.25rem);
+      color: #94a3b8;
+      max-width: 600px;
+      margin: 0 auto 40px;
+      line-height: 1.7;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background: linear-gradient(135deg, #00c896, #00a3ff);
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 700;
+      padding: 14px 36px;
+      border-radius: 50px;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 24px rgba(0, 200, 150, 0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 32px rgba(0, 200, 150, 0.45);
+    }
+
+    /* Divisor */
+    .divider {
+      height: 1px;
+      background: linear-gradient(to right, transparent, #334155, transparent);
+      margin: 0 40px;
+    }
+
+    /* Seção de cards */
+    .section {
+      padding: 70px 20px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .section-sub {
+      text-align: center;
+      color: #94a3b8;
+      margin-bottom: 50px;
+      font-size: 1rem;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 32px 28px;
+      transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(0, 200, 150, 0.35);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    .card-icon {
+      font-size: 2.4rem;
+      margin-bottom: 18px;
+      display: block;
+    }
+
+    .card h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      color: #94a3b8;
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    /* Seção de jornada */
+    .journey {
+      background: rgba(255, 255, 255, 0.025);
+      border-top: 1px solid rgba(255, 255, 255, 0.07);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    }
+
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .step {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      padding: 28px 0;
+      position: relative;
+    }
+
+    .step:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      left: 22px;
+      top: 72px;
+      width: 2px;
+      height: calc(100% - 44px);
+      background: linear-gradient(to bottom, #00c896, #00a3ff);
+      opacity: 0.3;
+    }
+
+    .step-num {
+      flex-shrink: 0;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #00c896, #00a3ff);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 1rem;
+      color: #fff;
+    }
+
+    .step-content h4 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .step-content p {
+      color: #94a3b8;
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    /* Citação motivacional */
+    .quote-section {
+      text-align: center;
+      padding: 70px 20px;
+    }
+
+    blockquote {
+      max-width: 680px;
+      margin: 0 auto;
+      font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+      font-weight: 500;
+      line-height: 1.6;
+      color: #cbd5e1;
+      position: relative;
+    }
+
+    blockquote::before {
+      content: '\201C';
+      font-size: 5rem;
+      color: #00c896;
+      opacity: 0.3;
+      position: absolute;
+      top: -30px;
+      left: -10px;
+      line-height: 1;
+    }
+
+    blockquote footer {
+      margin-top: 16px;
+      font-size: 0.9rem;
+      color: #64748b;
+      font-style: normal;
+    }
+
+    /* CTA final */
+    .cta {
+      text-align: center;
+      padding: 80px 20px;
+      background: linear-gradient(135deg, rgba(0, 200, 150, 0.08), rgba(0, 163, 255, 0.08));
+      border-top: 1px solid rgba(255, 255, 255, 0.07);
+    }
+
+    .cta h2 {
+      font-size: clamp(1.6rem, 4vw, 2.5rem);
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+
+    .cta p {
+      color: #94a3b8;
+      margin-bottom: 36px;
+      font-size: 1.05rem;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 24px 20px;
+      color: #475569;
+      font-size: 0.85rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    /* Animação de entrada */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeUp 0.8s forwards;
+    }
+
+    .fade-up:nth-child(2) { animation-delay: 0.15s; }
+    .fade-up:nth-child(3) { animation-delay: 0.3s; }
+    .fade-up:nth-child(4) { animation-delay: 0.45s; }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg-animation"></div>
+
+  <!-- Partículas decorativas -->
+  <div class="particles" id="particles"></div>
+
+  <div class="wrapper">
+
+    <!-- Hero -->
+    <header>
+      <div class="badge fade-up">Turma 2026</div>
+      <h1 class="fade-up">
+        Bem-vindos ao mundo<br />
+        <span class="highlight">NoCode</span>
+      </h1>
+      <p class="subtitle fade-up">
+        Você não precisa saber programar para construir soluções incríveis.
+        Aqui você aprende a criar, automatizar e inovar — do zero ao lançamento.
+      </p>
+      <a href="#jornada" class="btn-primary fade-up">Começar agora</a>
+    </header>
+
+    <div class="divider"></div>
+
+    <!-- O que você vai aprender -->
+    <section class="section">
+      <h2 class="section-title">O que você vai aprender</h2>
+      <p class="section-sub">Ferramentas poderosas, projetos reais e muita prática.</p>
+      <div class="cards">
+        <div class="card">
+          <span class="card-icon">🚀</span>
+          <h3>Criação de Sites & Apps</h3>
+          <p>Monte landing pages, portfólios e aplicativos completos sem escrever uma linha de código com ferramentas como Webflow, Bubble e Glide.</p>
+        </div>
+        <div class="card">
+          <span class="card-icon">⚡</span>
+          <h3>Automações Inteligentes</h3>
+          <p>Conecte sistemas, elimine tarefas repetitivas e deixe o trabalho fluir automaticamente com Make e Zapier.</p>
+        </div>
+        <div class="card">
+          <span class="card-icon">🤖</span>
+          <h3>Inteligência Artificial</h3>
+          <p>Integre IA nos seus projetos para criar chatbots, gerar conteúdo e tomar decisões mais rápidas com ferramentas acessíveis.</p>
+        </div>
+        <div class="card">
+          <span class="card-icon">🗄️</span>
+          <h3>Bancos de Dados Visuais</h3>
+          <p>Organize, relacione e manipule dados de forma visual com Airtable e Notion, sem precisar de SQL.</p>
+        </div>
+        <div class="card">
+          <span class="card-icon">📊</span>
+          <h3>Dashboards & Relatórios</h3>
+          <p>Visualize métricas e resultados de forma clara e profissional para apresentar a clientes ou times.</p>
+        </div>
+        <div class="card">
+          <span class="card-icon">💼</span>
+          <h3>Projetos para o Mercado</h3>
+          <p>Construa soluções reais que você pode usar para empreender, atender clientes ou resolver problemas da sua empresa.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- Jornada -->
+    <section class="journey" id="jornada">
+      <div class="section">
+        <h2 class="section-title">Sua jornada começa aqui</h2>
+        <p class="section-sub">Um caminho pensado para você evoluir com confiança.</p>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <h4>Fundamentos NoCode</h4>
+              <p>Entenda a mentalidade nocode, as principais categorias de ferramentas e como pensar em soluções sem código.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <h4>Primeiros Projetos</h4>
+              <p>Coloque a mão na massa com exercícios guiados e projetos simples que geram resultado desde o início.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <h4>Integrações & Automações</h4>
+              <p>Conecte ferramentas entre si para criar fluxos de trabalho poderosos e ganhar escala real.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">4</div>
+            <div class="step-content">
+              <h4>Projeto Final</h4>
+              <p>Desenvolva um projeto completo do zero ao deploy, pronto para apresentar ao mercado ou a clientes.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Citação -->
+    <section class="quote-section">
+      <blockquote>
+        "A tecnologia muda o mundo. NoCode coloca esse poder nas mãos de quem tem a ideia — e não apenas de quem sabe programar."
+        <footer>— Filosofia NoCode</footer>
+      </blockquote>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta">
+      <h2>Pronto para transformar suas ideias em realidade?</h2>
+      <p>Faça parte de uma nova geração de criadores digitais.</p>
+      <a href="#jornada" class="btn-primary">Explorar a jornada</a>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      &copy; 2026 NoCode Academy &mdash; Todos os direitos reservados.
+    </footer>
+
+  </div>
+
+  <script>
+    // Gerar partículas decorativas
+    const container = document.getElementById('particles');
+    const colors = ['#00c896', '#00a3ff', '#7c3aed', '#f59e0b'];
+
+    for (let i = 0; i < 30; i++) {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      const size = Math.random() * 8 + 4;
+      p.style.cssText = `
+        width: ${size}px;
+        height: ${size}px;
+        left: ${Math.random() * 100}%;
+        background: ${colors[Math.floor(Math.random() * colors.length)]};
+        animation-duration: ${Math.random() * 20 + 15}s;
+        animation-delay: ${Math.random() * 20}s;
+      `;
+      container.appendChild(p);
+    }
+
+    // Scroll suave nos links internos
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        const target = document.querySelector(link.getAttribute('href'));
+        if (target) target.scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+
+    // Animação dos cards ao rolar
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.card, .step').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(24px)';
+      el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      observer.observe(el);
+    });
+  </script>
+</body>
+</html>
